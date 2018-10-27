@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  web:
+    depends_on:
+      - 'mongo'
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+    container_name: parrots
+    environment:
+      - MONGO_CONN=mongodb://mongo:27017/parrots
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo

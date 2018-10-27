@@ -11,12 +11,6 @@ module.exports = {
         connection: (process.env.PARROT_MONGO_CONN || process.env.MONGO_CONN || 'mongodb://mongo:27017/parrots')
     },
 
-    encryption: {
-        bcrypt: {
-            rounds: 9
-        }
-    },
-
     clockwork: {
         api: ''
     },

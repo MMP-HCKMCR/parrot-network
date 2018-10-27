@@ -56,12 +56,12 @@ try {
 
 
     // setup passport
-    // require('./passport/init.js')(passport);
+    require('./helpers/passport_init.js')(passport);
 
 
     // load and setup routes
     //app.use('/', require('./routes/pages.js')());
-    //app.use('/api', require('./routes/api.js')());
+    app.use('/api', require('./routes/api.js')());
     app.use('/parrots', require('./routes/parrots.js')());
 
 
