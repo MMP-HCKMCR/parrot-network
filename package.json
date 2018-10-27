@@ -1,0 +1,27 @@
+{
+  "name": "parrot-network",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Team Fallout",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "gulp": "^3.9.1",
+    "https": "^1.0.0",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "mongoose": "^5.3.7",
+    "mongoose-bcrypt": "^1.6.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "validator": "^10.8.0"
+  }
+}
