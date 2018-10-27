@@ -47,5 +47,10 @@ module.exports = function() {
             failureRedirect: '/signup'
         }));
 
+    router.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/login');
+    });
+
     return router;
 }

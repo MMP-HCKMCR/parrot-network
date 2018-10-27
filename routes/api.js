@@ -1,7 +1,11 @@
 // packages and config
+var parsers = require('../helpers/parsers.js');
 var express = require('express');
-var passport = require('passport');
 var router = express.Router();
+var validator = require('validator');
+var PostRepo = require('../repos/post_repo.js');
+var UserRepo = require('../repos/user_repo.js');
+var Post = require('../models/post.js');
 
 var isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
@@ -12,6 +16,77 @@ var isAuthenticated = function(req, res, next) {
 }
 
 module.exports = function() {
+
+    // global posts
+    router.post('/posts', isAuthenticated, function(req, res) {
+        var msg = req.body.message;
+        if (!msg || validator.isEmpty(msg) || msg.length <= 2) {
+            res.json({ error: true, message: 'Invalid message' });
+            return
+        }
+
+        msg = parsers.parseMessageToParrots(msg);
+
+        var _post = new Post({
+            message: msg,
+            user: req.user
+        });
+
+        PostRepo.create(_post, (err, post) => {
+            if (err) {
+                console.log(err);
+                res.json({ error: true, message: err });
+            }
+
+            res.json({ error: false, post: post })
+        });
+    });
+
+    router.get('/posts', isAuthenticated, function(req, res) {
+        PostRepo.get((e, p) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            res.json({ error: false, posts: p });
+        });
+    });
+
+    // user posts
+    router.get('/posts/:username', isAuthenticated, function(req, res) {
+        UserRepo.findByUsername(req.params.username, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            PostRepo.findByUserId(u._id, (e, p) => {
+                if (e) {
+                    console.log(e);
+                    res.json({ error: true, message: e });
+                    return;
+                }
+
+                res.json({ error: false, posts: p });
+            });
+        });
+    })
+
+    // user info
+    router.get('/users/:username', isAuthenticated, function(req, res) {
+        UserRepo.findByUsername(req.params.username, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            res.json({ error: false, user: u });
+        });
+    })
 
     return router;
 }
