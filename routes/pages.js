@@ -19,7 +19,12 @@ module.exports = function() {
     });
 
     router.get('/login', function(req, res) {
-        res.sendFile(path.join(__dirname, '../views/login.html'));
+        if (req.isAuthenticated()) {
+            res.redirect('/');
+        }
+        else {
+            res.sendFile(path.join(__dirname, '../views/login.html'));
+        }
     });
 
     router.get('/signup', function(req, res) {
