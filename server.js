@@ -60,7 +60,7 @@ try {
 
 
     // load and setup routes
-    //app.use('/', require('./routes/pages.js')());
+    app.use('/', require('./routes/pages.js')());
     app.use('/api', require('./routes/api.js')());
     app.use('/parrots', require('./routes/parrots.js')());
 

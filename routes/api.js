@@ -13,17 +13,5 @@ var isAuthenticated = function(req, res, next) {
 
 module.exports = function() {
 
-    router.post('/login',
-        passport.authenticate('login', {
-            successRedirect: '/',
-            failureRedirect: '/'
-        }));
-
-    router.post('/signup',
-        passport.authenticate('signup', {
-            successRedirect: '/',
-            failureRedirect: '/'
-        }));
-
     return router;
 }
