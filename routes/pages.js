@@ -15,19 +15,19 @@ var isAuthenticated = function(req, res, next) {
 module.exports = function() {
 
     router.get('/', isAuthenticated, function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/feed.html'));
+        res.sendFile(path.join(__dirname, '../views/feed.html'));
     });
 
     router.get('/login', function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/login.html'));
+        res.sendFile(path.join(__dirname, '../views/login.html'));
     });
 
     router.get('/signup', function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/register.html'));
+        res.sendFile(path.join(__dirname, '../views/register.html'));
     });
 
     router.get('/profile', isAuthenticated, function(req, res) {
-        res.sendFile(path.join(__dirname, '../public/profile.html'));
+        res.sendFile(path.join(__dirname, '../views/profile.html'));
     });
 
     router.post('/login',
