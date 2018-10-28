@@ -344,7 +344,7 @@ input[type=radio]:checked + label {
         height: 70px;
     }
     header::before {
-        content: '<a href="/"><img src="img/small_icon.gif"/></a>';
+        content: url('img/small_icon.gif');
         display: block;
 /*        background-color: aqua;*/
         position: absolute;
