@@ -12,17 +12,19 @@
 
 <body class="full-height">
     <div class="valign">
-        <img src="img/logo.png">
-        <div class="form-box">
-            <input type="text" placeholder="Username">
-        </div>
-        <div class="form-box">
-            <input type="password" placeholder="Password">
-        </div>
-        <div class="register-login">
-            <button  onclick="location.href='/signup';" class="blank">Register</button>
-            <button>Login</button>
-        </div>
+        <form method="POST" action="/login">
+            <img src="img/logo.png">
+            <div class="form-box">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-box">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="register-login">
+                <button onclick="location.href='/signup';" class="blank">Register</button>
+                <button type="submit">Login</button>
+            </div>
+        </form>
     </div>
 </body>
 

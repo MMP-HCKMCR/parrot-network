@@ -12,28 +12,30 @@
 
 <body class="full-height">
     <div class="valign">
-        <img src="img/logo.png">
-        <div class="form-box">
-            <input type="text" placeholder="Full Name">
-        </div>
-        <div class="form-box">
-            <input type="text" placeholder="Username">
-        </div>
-        <div class="form-box">
-            <input type="email" placeholder="Email">
-        </div>
-        <div class="form-box">
-            <input type="password" placeholder="Password">
-        </div>
-        <div class="form-box">
-            <input type="password" placeholder="Confirm Password">
-        </div>
-        <div class="form-box">
-            <input type="file" placeholder="Profile Picture">
-        </div>
-        <div class="register-login">
-            <button>Register</button>
-        </div>
+        <form method="POST" action="/signup">
+            <img src="img/logo.png">
+            <div class="form-box">
+                <input type="text" name="fullname" placeholder="Full Name" required>
+            </div>
+            <div class="form-box">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-box">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-box">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-box">
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            </div>
+            <div class="form-box">
+                <input type="file" placeholder="Profile Picture">
+            </div>
+            <div class="register-login">
+                <button type="submit">Register</button>
+            </div>
+        </form>
     </div>
 </body>
 
