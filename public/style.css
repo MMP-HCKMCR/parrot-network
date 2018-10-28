@@ -2,6 +2,7 @@ body {
     margin: 0px;
     font-family: "Segoe UI", arial, sans-serif;
     background-color: #e1e8f0;
+    overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -59,6 +60,15 @@ header {
     grid-row-end: 3;
 }
 
+/* Remove left column on feed page */
+.profile-feed, .profile-feed + aside {
+    display: none;
+}
+
+.main-feed {
+    grid-column-start: 2;
+}
+
 #profile img {
     width: 200px;
     height: 200px;
@@ -82,6 +92,7 @@ main {
     grid-row-start: 2;
     grid-row-end: 4;
     padding: 15px;
+    overflow-y: scroll;
 }
 
 ul {
@@ -192,6 +203,7 @@ button:hover {
 }
 
 .post button {
+    font-size: 1.7em;
     border-radius: 50%;
     width: 45px;
     height:45px;
@@ -322,7 +334,6 @@ button:hover {
     }
     
     .post button {
-        font-size: 1.5em;
         position: fixed;
         bottom: 20px;
         right: 20px;
