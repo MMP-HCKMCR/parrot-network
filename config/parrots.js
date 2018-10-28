@@ -171,6 +171,7 @@ module.exports = {
     "bad": ":evilparrot:",
     "corrupt": ":evilparrot:",
     "destructive": ":evilparrot:",
+    "hate": ":evilparrot:",
     "hateful": ":evilparrot:",
     "heinous": ":evilparrot:",
     "hideous": ":evilparrot:",
@@ -222,6 +223,7 @@ module.exports = {
     "orange portal": ":portalorangeparrot:",
 
     "conga": ":congaparrot: :congaparrot: :congaparrot:",
+    "dance": ":congaparrot: :congaparrot: :congaparrot:",
     "disco": ":congaparrot: :congaparrot: :congaparrot:",
     "rock": ":congaparrot: :congaparrot: :congaparrot:",
     "samba": ":congaparrot: :congaparrot: :congaparrot:",
@@ -571,6 +573,11 @@ module.exports = {
 
 
     "ultrafast": ":ultrafastparrot:",
+    "awesome": ":ultrafastparrot:",
+    "brilliant": ":ultrafastparrot:",
+    "amazing": ":ultrafastparrot:",
+    "fantastic": ":ultrafastparrot:",
+    "best": ":ultrafastparrot:",
 
     "doge": ":dogeparrot:",
 
@@ -1223,6 +1230,8 @@ module.exports = {
 
     "sad": ":sadparrot:",
     "upset": ":sadparrot:",
+    "lone": ":sadparrot:",
+    "lonely": ":sadparrot:",
     "cry": ":sadparrot:",
     "bitter": ":sadparrot:",
     "dismal": ":sadparrot:",
@@ -1311,6 +1320,10 @@ module.exports = {
 
     "wave": ":parrotwave1: :parrotwave2: :parrotwave3: :parrotwave4: :parrotwave5: :parrotwave6: :parrotwave7:",
     "mexican wave": ":parrotwave1: :parrotwave2: :parrotwave3: :parrotwave4: :parrotwave5: :parrotwave6: :parrotwave7:",
+    "hello": ":parrotwave1:",
+    "yo": ":parrotwave2:",
+    "hi": ":parrotwave3:",
+    "hey": ":parrotwave4:",
 
     "pizza": ":pizzaparrot:",
 
