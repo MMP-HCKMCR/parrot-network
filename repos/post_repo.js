@@ -11,17 +11,18 @@ PostRepo.create = function(post, cb) {
 
 PostRepo.findByUserId = function(userId, cb) {
     Post.find({ 'user': userId })
-       .sort({ 'created_at': 1 })
+       .sort({ 'created_at': -1 })
        .limit(30)
        .populate('user')
-       .exec((e, p) => callback(e, p));
+       .exec((e, p) => cb(e, p));
 }
 
 PostRepo.get = function(cb) {
-    Post.sort({ 'created_at': 1 })
+    Post.find({})
+       .sort({ 'created_at': -1 })
        .limit(30)
        .populate('user')
-       .exec((e, p) => callback(e, p));
+       .exec((e, p) => cb(e, p));
 }
 
 PostRepo.findById = function(id, cb) {

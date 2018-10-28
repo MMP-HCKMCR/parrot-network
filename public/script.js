@@ -3,6 +3,9 @@ $(document).ready(() => {
         sendPost($('div.post form input[name=message]')[0].value);
         e.preventDefault();
     });
+
+    getPosts();
+    setInterval(getPosts, 10000);
 })
 
 function sendPost(msg) {
@@ -13,12 +16,17 @@ function sendPost(msg) {
         dataType: "json",
         success: function(data) {
             console.log(data);
-            //getPosts();
+            clearPost();
+            getPosts();
         },
         error: function(err) {
             console.log('[SEND] Failed: ' + error);
         }
     });
+}
+
+function clearPost() {
+    $('div.post form input[name=message]')[0].value = '';
 }
 
 function getPosts() {
@@ -34,8 +42,10 @@ function getPosts() {
             return;
         }
 
+        clearPosts();
+
         data.posts.forEach((v) => {
-            addPostToFeed(v.message);
+            addPostToFeed(v);
         });
     });
 
@@ -44,11 +54,33 @@ function getPosts() {
     });
 }
 
-function addPostToFeed(post) {
+function clearPosts() {
+    $('div.all-posts').html('')
+}
 
+function addPostToFeed(post) {
+    var time = (moment().utc()).diff((moment(post.created_at)), 'minutes');
+
+    $('div.all-posts').append('' +
+        '<div class="post-block">' +
+            '<img src="img/party-parrot.gif">' +
+            '<div class="post-content">' +
+                    '<div class="post-header">' +
+                        '<p class="post-name"></p>' +
+                        '<p class="post-username">' + post.user.username + '</p>' +
+                        '<p class="dot"> &#149; </p>' +
+                        '<p class="post-time">' + time + 'm</p>' +
+                    '</div>' +
+                    '<div class="post-gifs">' +
+                        mapMessageToParrots(post.message) +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+    '');
 }
 
 function mapMessageToParrots(msg) {
+    msg = msg.replace(/\:\:/g, ': :')
     var atoms = msg.split(' ');
     var img = '';
 
