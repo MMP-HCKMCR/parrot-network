@@ -247,8 +247,9 @@ button:hover {
 }
 
 .post-gifs img {
-    margin: 4px;
+    margin: 0;
     width: 40px;
+    padding: 0;
 }
 
 /* --------- MEDIA QURIES ------------ */
