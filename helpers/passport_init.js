@@ -46,7 +46,6 @@ module.exports = function(passport) {
         var email = req.body.email;
         var confirmPassword = req.body.confirmPassword
         var fullname = req.body.fullname;
-        //var dob = req.body.dob;
 
         if (!username || validator.isEmpty(username)) {
             console.log('[SIGNUP] invalid username');

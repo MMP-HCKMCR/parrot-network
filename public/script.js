@@ -1,3 +1,34 @@
+$(document).ready(() => {
+
+})
+
+function getPosts() {
+    var request = $.ajax({
+        url: "/api/posts",
+        method: "GET",
+        dataType: "json"
+    });
+
+    request.done((data) => {
+        if (data.error) {
+            console.log('[LOAD] Failed');
+            return;
+        }
+
+        data.posts.forEach((v) => {
+            addPostToFeed(v.message);
+        });
+    });
+
+    request.fail((jq, status) => {
+        console.log('[LOAD] Failed: ' + status);
+    });
+}
+
+function addPostToFeed(post) {
+
+}
+
 function mapMessageToParrots(msg) {
     var atoms = msg.split(' ');
     var img = '';
