@@ -6,7 +6,12 @@ $(document).ready(() => {
 
     getPosts();
     setInterval(getPosts, 10000);
+    if(window.location.pathname.includes("user")) renderUser();
 })
+
+function renderUser() {
+    getPosts(new URLSearchParams(window.location.search).get('u'));
+}
 
 function sendPost(msg) {
     $.ajax({
@@ -29,9 +34,9 @@ function clearPost() {
     $('div.post form input[name=message]')[0].value = '';
 }
 
-function getPosts() {
+function getPosts(user = "") {
     var req = $.ajax({
-        url: "/api/posts",
+        url: "/api/posts" + user,
         method: "GET",
         dataType: "json"
     });
