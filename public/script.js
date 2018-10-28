@@ -63,7 +63,7 @@ function addPostToFeed(post) {
 
     $('div.all-posts').append('' +
         '<div class="post-block">' +
-            '<img src="img/party-parrot.gif">' +
+            '<img src="img/avatar/' + (post.user.avatar || 'coolparrot') + '.png">' +
             '<div class="post-content">' +
                     '<div class="post-header">' +
                         '<p class="post-name"></p>' +
