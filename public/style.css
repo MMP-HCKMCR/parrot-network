@@ -408,6 +408,7 @@ input[type=radio]:checked + label {
         margin-left: -20px;
     }
     .all-posts .post-block:last-child {
-        margin-bottom: 80px;
+        margin-bottom: 70px;
+        border: 0px;
     }
 }
