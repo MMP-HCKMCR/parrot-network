@@ -1,6 +1,6 @@
 $(document).ready(() => {
-    $('div.post form').submit(function(e) {
-        sendPost($('div.post form input[name=message]'));
+    $('div.post form button[name=add-post]').click(function(e) {
+        sendPost($('div.post form input[name=message]')[0].value);
         e.preventDefault();
     });
 })
@@ -9,7 +9,7 @@ function sendPost(msg) {
     $.ajax({
         url: "/api/posts",
         method: "POST",
-        data: { message: msg },
+        data: "message=" + msg,
         dataType: "json",
         success: function(data) {
             console.log(data);
