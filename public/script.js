@@ -31,6 +31,7 @@ $(document).ready(() => {
 
 function loadForUser(user) {
     $('img#profile-pic').attr('src', 'img/avatar/' + (user.avatar || 'coolparrot') + '.png');
+    $('h1#profile-name').html(user.username);
     getPosts('/api/posts/' + user.username);
 }
 

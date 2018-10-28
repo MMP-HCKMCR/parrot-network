@@ -4,7 +4,7 @@ var MonSchema = mongoose.Schema;
 
 var schema = new MonSchema({
     username: {
-        type: String, required: true, unique: true, index: true, minlength: 2, maxlength: 15
+        type: String, required: true, unique: true, index: true, minlength: 2, maxlength: 12
     },
     email: {
         type: String, required: true, unique: true, index: true
