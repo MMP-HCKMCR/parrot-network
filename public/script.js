@@ -4,14 +4,20 @@ $(document).ready(() => {
         e.preventDefault();
     });
 
-    getPosts();
-    setInterval(getPosts, 10000);
-    if(window.location.pathname.includes("user")) renderUser();
-})
+    if (window.location.pathname == '/') {
+        getPosts();
+        setInterval(getPosts, 10000);
+    }
 
-function renderUser() {
-    getPosts(new URLSearchParams(window.location.search).get('u'));
-}
+    if (window.location.pathname == '/profile') {
+        getPosts('/api/users/posts');
+    }
+
+    if (window.location.pathname.includes("/user")) {
+        var user = new URLSearchParams(window.location.search).get('u');
+        getPosts('/api/posts/' + user);
+    }
+})
 
 function sendPost(msg) {
     $.ajax({
@@ -22,7 +28,14 @@ function sendPost(msg) {
         success: function(data) {
             console.log(data);
             clearPost();
-            getPosts();
+
+            if (window.location.pathname == '/') {
+                getPosts();
+            }
+
+            if (window.location.pathname == '/profile') {
+                getPosts('/api/users/posts');
+            }
         },
         error: function(err) {
             console.log('[SEND] Failed: ' + error);
@@ -34,9 +47,11 @@ function clearPost() {
     $('div.post form input[name=message]')[0].value = '';
 }
 
-function getPosts(user = "") {
+function getPosts(url) {
+    url = (url || '/api/posts');
+
     var req = $.ajax({
-        url: "/api/posts" + user,
+        url: url,
         method: "GET",
         dataType: "json"
     });
@@ -72,7 +87,7 @@ function addPostToFeed(post) {
             '<div class="post-content">' +
                     '<div class="post-header">' +
                         '<p class="post-name"></p>' +
-                        '<p class="post-username">' + post.user.username + '</p>' +
+                        '<p class="post-username"><a href="/user?u=' + post.user.username + '">' + post.user.username + '</a></p>' +
                         '<p class="dot"> &#149; </p>' +
                         '<p class="post-time">' + time + 'm</p>' +
                     '</div>' +

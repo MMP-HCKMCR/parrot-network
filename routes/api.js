@@ -85,6 +85,27 @@ module.exports = function() {
         });
     })
 
+    // user posts for current user
+    router.get('/users/posts', isAuthenticated, function(req, res) {
+        UserRepo.findByUsername(req.user.username, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            PostRepo.findByUserId(u._id, (e, p) => {
+                if (e) {
+                    console.log(e);
+                    res.json({ error: true, message: e });
+                    return;
+                }
+
+                res.json({ error: false, posts: p });
+            });
+        });
+    })
+
     // user info
     router.get('/users/:username', isAuthenticated, function(req, res) {
         UserRepo.findByUsername(req.params.username, (e, u) => {

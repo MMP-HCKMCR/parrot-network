@@ -7,6 +7,8 @@
     <title>Parrot Network</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/moment.min.js"></script>
     <script src="script.js"></script>
 </head>
 
@@ -32,68 +34,14 @@
                 <li>Option 4</li>
             </ul>
         </aside>
-        <main>
+        <main class="main-feed">
             <div class="post">
-                <form method="POST" action="/posts">
-                    <input type="text" name="message" placeholder="New Post">
-                    <button type="submit">+</button>
+                <form method="POST" action="/api/posts">
+                    <input type="text" name="message" placeholder="New Post" required>
+                    <button name="add-post">+</button>
                 </form>
             </div>
-            <div class="post-block">
-                <img src="img/party-parrot.gif">
-                <div class="post-content">
-                    <div class="post-header">
-                        <p class="post-name">Sean O.</p>
-                        <p class="post-username">Sean12697</p>
-                        <p class="dot"> &#149; </p>
-                        <p class="post-time">5m</p>
-                    </div>
-                    <div class="post-gifs">
-
-                    </div>
-                </div>
-            </div>
-            <div class="post-block">
-                <img src="img/party-parrot.gif">
-                <div class="post-content">
-                    <div class="post-header">
-                        <p class="post-name">Sean O.</p>
-                        <p class="post-username">Sean12697</p>
-                        <p class="dot"> &#149; </p>
-                        <p class="post-time">19m</p>
-                    </div>
-                    <div class="post-gifs">
-
-                    </div>
-                </div>
-            </div>
-            <div class="post-block">
-                <img src="img/party-parrot.gif">
-                <div class="post-content">
-                    <div class="post-header">
-                        <p class="post-name">Sean O.</p>
-                        <p class="post-username">Sean12697</p>
-                        <p class="dot"> &#149; </p>
-                        <p class="post-time">46m</p>
-                    </div>
-                    <div class="post-gifs">
-
-                    </div>
-                </div>
-            </div>
-            <div class="post-block">
-                <img src="img/party-parrot.gif">
-                <div class="post-content">
-                    <div class="post-header">
-                        <p class="post-name">Sean O.</p>
-                        <p class="post-username">Sean12697</p>
-                        <p class="dot"> &#149; </p>
-                        <p class="post-time">59m</p>
-                    </div>
-                    <div class="post-gifs">
-
-                    </div>
-                </div>
+            <div class="all-posts">
             </div>
         </main>
     </div>

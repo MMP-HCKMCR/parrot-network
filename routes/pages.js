@@ -35,6 +35,10 @@ module.exports = function() {
         res.sendFile(path.join(__dirname, '../views/profile.html'));
     });
 
+    router.get('/user', isAuthenticated, function(req, res) {
+        res.sendFile(path.join(__dirname, '../views/user.html'));
+    });
+
     router.post('/login',
         passport.authenticate('login', {
             successRedirect: '/',
