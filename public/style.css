@@ -242,15 +242,21 @@ button:hover {
 
 .post-gifs {
     display: block;
-    background-color: burlywood;
     margin-bottom: 20px;
-    width: 250px;
-    height: 150px;
+    max-width: 550px;
+}
+
+.post-gifs img {
+    margin: 4px;
+    width: 40px;
 }
 
 /* --------- MEDIA QURIES ------------ */
 
 @media only screen and (max-width: 700px) {
+    .post-gifs {
+        max-width: 70vw;
+    }
     body {
         background-color: white;
         overflow-y: scroll;
