@@ -20,7 +20,7 @@ PostRepo.findByUserId = function(userId, cb) {
 
 PostRepo.get = function(userId, cb) {
     FollowRepo.findByUserId(userId, (e, f) => {
-        var fols = [];
+        var fols = [userId];
         _.forEach(f, (v) => {
             fols[fols.length] = v.followee;
         });
@@ -31,13 +31,6 @@ PostRepo.get = function(userId, cb) {
             .populate('user')
             .exec((e, p) => cb(e, p));
     });
-
-
-    /*Post.find({})
-       .sort({ 'created_at': -1 })
-       .limit(30)
-       .populate('user')
-       .exec((e, p) => cb(e, p));*/
 }
 
 PostRepo.findById = function(id, cb) {
