@@ -409,6 +409,9 @@ input[type=radio]:checked + label {
         grid-column-start: 1;
         grid-column-end: 5;
     }
+    .main-feed {
+        grid-row-start: 2;
+    }
     aside::after {
         content: '';
         position: absolute;
