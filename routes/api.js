@@ -1,5 +1,6 @@
 // packages and config
 var parsers = require('../helpers/parsers.js');
+var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
 var validator = require('validator');
@@ -7,6 +8,7 @@ var PostRepo = require('../repos/post_repo.js');
 var UserRepo = require('../repos/user_repo.js');
 var FollowRepo = require('../repos/follow_repo.js');
 var Post = require('../models/post.js');
+var Follow = require('../models/follow.js');
 
 var isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
@@ -54,7 +56,7 @@ module.exports = function() {
     });
 
     router.get('/posts', isAuthenticated, function(req, res) {
-        PostRepo.get((e, p) => {
+        PostRepo.get(req.user._id, (e, p) => {
             if (e) {
                 console.log(e);
                 res.json({ error: true, message: e });
@@ -133,6 +135,44 @@ module.exports = function() {
         });
     })
 
+    // user following info for current user
+    router.get('/user/following', isAuthenticated, function(req, res) {
+        FollowRepo.findByUserId(req.user._id, (e, f) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            res.json({ error: false, user: req.user, following: f });
+        })
+    })
+
+    // is current user following the passed user
+    router.get('/user/following/:username', isAuthenticated, function(req, res) {
+        UserRepo.findByUsername(req.params.username, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            FollowRepo.findByUserAndFolloweeId(req.user._id, u._id, (e, f) => {
+                if (e) {
+                    console.log(e);
+                    res.json({ error: true, message: e });
+                    return;
+                }
+
+                //var r = _.find(f, function(o) {
+                //    return (o.username == req.params.username);
+                //});
+
+                res.json({ error: false, following: (f != null && f != undefined) });
+            })
+        });
+    })
+
     // current user follow another user
     router.post('/user/follow/:username', isAuthenticated, function(req, res) {
         UserRepo.findByUsername(req.params.username, (e, u) => {
@@ -143,7 +183,12 @@ module.exports = function() {
             }
 
             // follow the user
-            FollowRepo.add(req.user, u, (e, f) => {
+            var _follow = new Follow({
+                user: req.user._id,
+                followee: u._id
+            });
+
+            FollowRepo.add(_follow, (e, f) => {
                 if (e) {
                     console.log(e);
                     res.json({ error: true, message: e });
@@ -165,7 +210,7 @@ module.exports = function() {
             }
 
             // unfollow the user
-            FollowRepo.remove(req.user, u, (e, f) => {
+            FollowRepo.remove(req.user._id, u._id, (e, f) => {
                 if (e) {
                     console.log(e);
                     res.json({ error: true, message: e });

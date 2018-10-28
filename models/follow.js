@@ -9,11 +9,12 @@ var schema = new MonSchema({
         index: true,
         ref: 'User'
     },
-    following: [{
+    followee: {
         type: MonSchema.Types.ObjectId,
         required: true,
+        index: true,
         ref: 'User'
-    }]
+    }
 })
 
 var Follow = mongoose.model('Follow', schema);
