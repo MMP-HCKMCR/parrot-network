@@ -9,15 +9,49 @@ $(document).ready(() => {
         setInterval(getPosts, 10000);
     }
 
-    if (window.location.pathname == '/profile') {
-        getPosts('/api/users/posts');
-    }
-
     if (window.location.pathname.includes("/user")) {
-        var user = new URLSearchParams(window.location.search).get('u');
-        getPosts('/api/posts/' + user);
+        getCurrentUser((e, u) => {
+            if (e) { 
+                console.log(e);
+                return;
+            }
+
+            console.log(u);
+
+            var username = getUserFromQuery();
+
+            if (username && username != u.username) {
+                $('div.post').hide();
+            }
+
+            loadForUser((username || u.username));
+        });
     }
 })
+
+function loadForUser(username) {
+    getPosts('/api/posts/' + username);
+}
+
+function getUserFromQuery() {
+    return (new URLSearchParams(window.location.search).get('u'));
+}
+
+function getCurrentUser(cb) {
+    $.ajax({
+        url: "/api/user",
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            cb(null, data.user);
+        },
+        error: function(err) {
+            console.log('[GETUSER] Failed: ' + error);
+            cb(err, null);
+        }
+    });
+}
 
 function sendPost(msg) {
     $.ajax({
@@ -33,7 +67,7 @@ function sendPost(msg) {
                 getPosts();
             }
 
-            if (window.location.pathname == '/profile') {
+            if (window.location.pathname == '/user') {
                 getPosts('/api/users/posts');
             }
         },
@@ -80,6 +114,13 @@ function clearPosts() {
 
 function addPostToFeed(post) {
     var time = (moment().utc()).diff((moment(post.created_at)), 'minutes');
+    if (time >= 60) {
+        time = (moment().utc()).diff((moment(post.created_at)), 'hours');
+        time = (time + 'h');
+    }
+    else {
+        time = (time + 'm');
+    }
 
     $('div.all-posts').append('' +
         '<div class="post-block">' +
@@ -89,7 +130,7 @@ function addPostToFeed(post) {
                         '<p class="post-name"></p>' +
                         '<p class="post-username"><a href="/user?u=' + post.user.username + '">' + post.user.username + '</a></p>' +
                         '<p class="dot"> &#149; </p>' +
-                        '<p class="post-time">' + time + 'm</p>' +
+                        '<p class="post-time">' + time + '</p>' +
                     '</div>' +
                     '<div class="post-gifs">' +
                         mapMessageToParrots(post.message) +

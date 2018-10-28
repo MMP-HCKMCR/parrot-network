@@ -119,5 +119,18 @@ module.exports = function() {
         });
     })
 
+    // user info for current user
+    router.get('/user', isAuthenticated, function(req, res) {
+        UserRepo.findByUsername(req.user.username, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            res.json({ error: false, user: u });
+        });
+    })
+
     return router;
 }

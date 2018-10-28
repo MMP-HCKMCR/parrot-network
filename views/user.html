@@ -19,7 +19,7 @@
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/user">Profile</a></li>
                 </ul>
             </nav>
         </header>
@@ -35,6 +35,12 @@
             </ul>
         </aside>
         <main class="main-feed">
+            <div class="post">
+                <form method="POST" action="/api/posts">
+                    <input type="text" name="message" placeholder="New Post" required>
+                    <button name="add-post">+</button>
+                </form>
+            </div>
             <div class="all-posts">
             </div>
         </main>
