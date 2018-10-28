@@ -330,14 +330,19 @@ input[type=radio]:checked + label {
     }
     #grid {
         grid-template-columns: 15px calc(100vw - 80px) 10px;
-        grid-template-rows: 10vh 90vh;
+        grid-template-rows: 10vh 30vh 60vh;
         grid-gap: 0px;
     }
     #icon img {
         display: none;
     }
     #profile {
-        text-align: center;
+        text-align: left;
+    }
+    #profile-name {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-left: 10px;
     }
     header {
         position: fixed;
@@ -381,7 +386,7 @@ input[type=radio]:checked + label {
         left 0px;
     }
     main {
-        grid-row-start: 2;
+        grid-row-start: 3;
         grid-row-end: 4;
         grid-column-start: 1;
         grid-column-end: 5;
