@@ -27,7 +27,6 @@
         <div id="profile">
             <img id="profile-pic" src="">
             <div>
-                <h1 id="profile-name"></h1>
                 <button style="display:none">Follow</button>
                 <button style="display:none" class="orange">Unfollow</button>
             </div>
@@ -41,6 +40,7 @@
             </ul>
         </aside>-->
         <main>
+            <h1 id="profile-name"></h1>
             <div class="post">
                 <form method="POST" action="/api/posts">
                     <input type="text" name="message" placeholder="New Post" maxlength="140" required>

@@ -148,6 +148,14 @@ aside li {
     list-style-type: none;
 }
 
+#profile-name {
+    margin-bottom: 10px;
+    background-color: #e1e8f0;
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    height: 50px;
+    margin-top: -20px;
+}
 
 /* -------------- LOGIN ------------------ */
 
@@ -361,6 +369,7 @@ input[type=radio]:checked + label {
         display: inline-block;
         vertical-align: bottom;
         margin-left: 10px;
+        background-color: rgba(0,0,0,0);
     }
     header {
         position: fixed;
