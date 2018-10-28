@@ -345,7 +345,6 @@ input[type=radio]:checked + label {
 
 h1#profile-name + div {
     display: inline-block;
-    position: absolute;
     margin-top: -58px;
     margin-left: 160px;
 }
