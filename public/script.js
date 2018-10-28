@@ -20,6 +20,19 @@ $(document).ready(() => {
 
             if (username && username != u.username) {
                 $('div.post').hide();
+
+                isUserFollowing(username, (e, f) => {
+                    if (f) {
+                        $('button#follow').hide();
+                        $('button#unfollow').show();
+                    }
+                    else {
+                        $('button#follow').show();
+                        $('button#unfollow').hide();
+                    }
+
+                    bindFollowingEvents();
+                });
             }
 
             getUserInfo((username || u.username), (e, u) => {
@@ -28,6 +41,42 @@ $(document).ready(() => {
         });
     }
 })
+
+function bindFollowingEvents() {
+    $('button#follow').click(function(e) {
+        callFollowUnfollow('follow', (e, d) => {
+            if (!d.error) {
+                $('button#follow').hide();
+                $('button#unfollow').show();
+            }
+        });
+    })
+
+    $('button#unfollow').click(function(e) {
+        callFollowUnfollow('unfollow', (e, d) => {
+            if (!d.error) {
+                $('button#follow').show();
+                $('button#unfollow').hide();
+            }
+        });
+    })
+}
+
+function callFollowUnfollow(action, cb) {
+    $.ajax({
+        url: "/api/user/" + action + "/" + $('h1#profile-name').html(),
+        method: "POST",
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            cb(null, data);
+        },
+        error: function(err) {
+            console.log('[GETCURUSER] Failed: ' + error);
+            cb(err, null);
+        }
+    });
+}
 
 function loadForUser(user) {
     $('img#profile-pic').attr('src', 'img/avatar/' + (user.avatar || 'coolparrot') + '.png');
@@ -60,8 +109,23 @@ function getUserInfo(username, cb) {
         method: "GET",
         dataType: "json",
         success: function(data) {
-            console.log(data);
             cb(null, data.user);
+        },
+        error: function(err) {
+            console.log('[GETUSER] Failed: ' + error);
+            cb(err, null);
+        }
+    });
+}
+
+function isUserFollowing(username, cb) {
+    $.ajax({
+        url: "/api/user/following/" + username,
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            cb(null, data.following);
         },
         error: function(err) {
             console.log('[GETUSER] Failed: ' + error);
@@ -77,7 +141,6 @@ function sendPost(msg) {
         data: "message=" + msg,
         dataType: "json",
         success: function(data) {
-            console.log(data);
             clearPost();
 
             if (window.location.pathname == '/') {

@@ -6,24 +6,23 @@ var UserRepo = require('./user_repo.js');
 function FollowRepo() { }
 module.exports = FollowRepo;
 
-FollowRepo.add = function(user, followee, cb) {
-    Follow.findByIdAndUpdate(user._id,
-        { $push: { 'following': followee._id } },
-        { $safe: true, $upsert: true, $new: true },
-        (e, f) => cb(e, f)
-    );
+FollowRepo.add = function(followee, cb) {
+    followee.save((e) => cb(e, followee));
 }
 
-FollowRepo.remove = function(user, followee, cb) {
-    Follow.findByIdAndUpdate(user._id,
-        { $pull: { 'following': followee._id } },
-        { $safe: true, $upsert: true, $new: true },
-        (e, f) => cb(e, f)
-    );
+FollowRepo.remove = function(userId, followeeId, cb) {
+    Follow.findOneAndRemove({ 'user': userId, 'followee': followeeId })
+        .exec((e, r) => cb(e, r));
+}
+
+FollowRepo.findByUserAndFolloweeId = function(userId, followeeId, cb) {
+    Follow.findOne({ 'user': userId, 'followee': followeeId })
+        .populate('user')
+        .populate('followee')
+        .exec((e, f) => cb(e, f));
 }
 
 FollowRepo.findByUserId = function(userId, cb) {
     Follow.find({ 'user': userId })
-        .populate('following')
         .exec((e, f) => cb(e, f));
 }

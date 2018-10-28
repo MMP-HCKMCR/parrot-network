@@ -1,0 +1,14 @@
+{
+    "name": "Parrot Network",
+    "icons": [
+        {
+            "src": "/img/party-parrot.gif",
+            "type": "image/gif",
+            "sizes": "220x220"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#6ed3cf",
+    "display": "standalone",
+    "theme_color": "#6ed3cf"
+}
