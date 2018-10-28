@@ -63,7 +63,6 @@ header {
     grid-row-end: 3;
 }
 
-
 /* Remove left column on feed page */
 
 .profile-feed,
@@ -148,6 +147,14 @@ aside li {
     list-style-type: none;
 }
 
+#profile-name {
+    margin-bottom: 10px;
+    background-color: #e1e8f0;
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    height: 50px;
+    margin-top: -20px;
+}
 
 /* -------------- LOGIN ------------------ */
 
@@ -286,7 +293,7 @@ button:hover {
 .post-gifs {
     display: block;
     margin-bottom: 20px;
-    max-width: 550px;
+    max-width: 350px;
 }
 
 .post-gifs img {
@@ -336,9 +343,18 @@ input[type=radio]:checked + label {
 }
 
 
+h1#profile-name + div {
+    display: inline-block;
+    margin-top: -58px;
+    margin-left: 160px;
+}
+
 /* --------- MEDIA QURIES ------------ */
 
 @media only screen and (max-width: 700px) {
+    h1#profile-name + div {
+        margin-left: 190px;
+    }
     .post-gifs {
         max-width: 70vw;
     }
@@ -348,19 +364,21 @@ input[type=radio]:checked + label {
     }
     #grid {
         grid-template-columns: 15px calc(100vw - 80px) 10px;
-        grid-template-rows: 10vh 30vh 60vh;
+        grid-template-rows: 10vh 200px calc(90vw - 200px);
         grid-gap: 0px;
     }
     #icon img {
         display: none;
     }
     #profile {
-        text-align: left;
+        text-align: center;
+        width: 100vw;
     }
     #profile-name {
         display: inline-block;
         vertical-align: bottom;
         margin-left: 10px;
+        background-color: rgba(0,0,0,0);
     }
     header {
         position: fixed;
@@ -401,7 +419,7 @@ input[type=radio]:checked + label {
         width: 20px;
         height: 20px;
         top: 0px;
-        left 0px;
+        left: 0px;
     }
     main {
         grid-row-start: 3;
