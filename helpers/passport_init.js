@@ -17,6 +17,8 @@ module.exports = function(passport) {
 
     passport.use('login', new PassportLocal(
         function(username, password, done) {
+            username = username.replace(/ /g, '_');
+
             UserRepo.findByUsername(username, (err, user) => {
                 if (err) {
                     console.log(err);
