@@ -13,6 +13,7 @@ exports.parseMessageToParrots = function(msg) {
     _.forEach(words, (v) => {
         if (parrot_map[v] && !validator.isEmpty(parrot_map[v])) {
             new_msg += parrot_map[v];
+            new_msg += ' ';
         }
     })
 
@@ -20,5 +21,5 @@ exports.parseMessageToParrots = function(msg) {
         new_msg = parrot_map['confused'];
     }
 
-    return new_msg;
+    return new_msg.trim();
 }

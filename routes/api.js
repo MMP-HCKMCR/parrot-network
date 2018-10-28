@@ -20,8 +20,18 @@ module.exports = function() {
     // global posts
     router.post('/posts', isAuthenticated, function(req, res) {
         var msg = req.body.message;
-        if (!msg || validator.isEmpty(msg) || msg.length <= 2) {
+        if (!msg || validator.isEmpty(msg)) {
             res.json({ error: true, message: 'Invalid message' });
+            return
+        }
+
+        if (msg.length <= 2) {
+            res.json({ error: true, message: 'Invalid message - too short' });
+            return
+        }
+
+        if (msg.length >= 140) {
+            res.json({ error: true, message: 'Invalid message - too long' });
             return
         }
 
