@@ -18,9 +18,6 @@ var schema = new MonSchema({
     is_private: {
         type: Boolean, default: true
     },
-    //dob: {
-    //    type: Date, default: null
-    //},
     created_at: {
         type: Date, default: null
     },
