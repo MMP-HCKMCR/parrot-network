@@ -8,7 +8,7 @@ exports.parseMessageToParrots = function(msg) {
     }
 
     var new_msg ='';
-    var words = _.words(msg);
+    var words = _.words(msg.toLowerCase());
 
     _.forEach(words, (v) => {
         if (parrot_map[v] && !validator.isEmpty(parrot_map[v])) {
