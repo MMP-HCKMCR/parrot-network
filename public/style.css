@@ -80,6 +80,20 @@ header {
     height: 200px;
 }
 
+#profile div {
+    display: inline-block;
+    position: absolute;
+}
+
+#profile div * {
+    display: block;
+    margin: 5px;
+}
+
+#profile div button {
+    display: inline-block;
+}
+
 aside,
 main,
 #profile {
@@ -196,6 +210,10 @@ button.blank {
     padding: 11px 20px;
     border: 2px #9068be solid;
     transition: 500ms;
+}
+
+button.orange {
+    background-color: orange;
 }
 
 button:hover {
@@ -390,6 +408,9 @@ input[type=radio]:checked + label {
         grid-row-end: 4;
         grid-column-start: 1;
         grid-column-end: 5;
+    }
+    .main-feed {
+        grid-row-start: 2;
     }
     aside::after {
         content: '';
