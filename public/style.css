@@ -253,15 +253,11 @@ button:hover {
         text-align: center;
     }
     
-    header {
-        position: fixed;
-        height: 70px;
-    }
-    
     nav {
-        width: 100vw;
+        width: calc(100vw - 80px);
         text-align: center;
-        top: 13px;
+        top: 17px;
+        left: -13px;
     }
     
     nav ul {
