@@ -5,6 +5,7 @@ var router = express.Router();
 var validator = require('validator');
 var PostRepo = require('../repos/post_repo.js');
 var UserRepo = require('../repos/user_repo.js');
+var FollowRepo = require('../repos/follow_repo.js');
 var Post = require('../models/post.js');
 
 var isAuthenticated = function(req, res, next) {
@@ -129,6 +130,50 @@ module.exports = function() {
             }
 
             res.json({ error: false, user: u });
+        });
+    })
+
+    // current user follow another user
+    router.post('/user/follow/:username', isAuthenticated, function(req, res) {
+        UserRepo.findByUsername(req.params.username, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            // follow the user
+            FollowRepo.add(req.user, u, (e, f) => {
+                if (e) {
+                    console.log(e);
+                    res.json({ error: true, message: e });
+                    return;
+                }
+
+                res.json({ error: false, user: req.user, following: f });
+            })
+        });
+    })
+
+    // current user unfollow another user
+    router.post('/user/unfollow/:username', isAuthenticated, function(req, res) {
+        UserRepo.findByUsername(req.params.username, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            // unfollow the user
+            FollowRepo.remove(req.user, u, (e, f) => {
+                if (e) {
+                    console.log(e);
+                    res.json({ error: true, message: e });
+                    return;
+                }
+
+                res.json({ error: false, user: req.user, following: f });
+            })
         });
     })
 
