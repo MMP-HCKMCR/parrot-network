@@ -81,6 +81,11 @@ main {
     grid-column-end: 4;
     grid-row-start: 2;
     grid-row-end: 4;
+    padding: 15px;
+}
+
+ul {
+    padding-inline-start: 0px;
 }
 
 nav ul {
@@ -100,14 +105,9 @@ nav li:hover {
     transition: 200ms;
 }
 
-aside ul {
-    padding-inline-start: 0px;
-}
-
 aside li {
     padding: 20px 20px 20px 40px;
     list-style-type: none;
-    
 }
 
 /* -------------- LOGIN ------------------ */
@@ -174,4 +174,155 @@ button.blank {
 button:hover {
     transform: scale(1.05);
     transition: 500ms;
+}
+
+/* ----------- INPUT FEED ------------- */
+
+.post {
+    vertical-align: middle;
+}
+
+.post input, .post button {
+    display: inline-block;
+    margin: 5px;
+}
+
+.post input {
+    width: calc(100% - 100px);
+}
+
+.post button {
+    border-radius: 50%;
+    width: 45px;
+    height:45px;
+    padding: 5px;
+}
+
+/* Y U NO WORK */
+.post-header {
+    vertical-align: middle;
+}
+
+.post-block {
+    border-bottom: 1px #57585d solid;
+}
+
+.post-block img {
+    width: 50px;
+}
+
+.post-block img, .post-header {
+    margin: 10px;
+}
+
+.post-header {
+    margin-left: 0px;
+}
+
+.post-block img, .post-content, .post-content p {
+    display: inline-block;
+}
+
+.post-username, .dot, .post-time {
+    color: #57585d;
+    font-size: 0.9em;
+}
+
+.post-gifs {
+    display: block;
+    background-color: burlywood;
+    margin-bottom: 20px;
+    width: 250px;
+    height: 150px;
+}
+
+/* --------- MEDIA QURIES ------------ */
+
+@media only screen and (max-width: 700px) {
+    #grid {
+        grid-template-columns: 15px calc(100vw - 80px) 10px;
+        grid-template-rows: 10vh 90vh;
+        grid-gap: 0px;
+    }
+    
+    #icon img {
+        display: none;
+    }
+    
+    #profile {
+        text-align: center;
+    }
+    
+    nav {
+        width: calc(100vw - 80px);
+        text-align: center;
+        top: 17px;
+        left: -13px;
+    }
+    
+    nav ul {
+        text-align: center;
+    }
+    
+    nav li {
+        padding: 20px 14px;
+    }
+    
+    aside {
+        position: absolute;
+        width: 75vw;
+        height: 100vh;
+        display: none;
+    }
+    
+    /* Need to show */
+    aside::before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 20px;
+        height: 20px;
+        top: 0px;
+        left 0px;
+    }
+    
+    main {
+        grid-row-start: 2;
+        grid-row-end: 4;
+        grid-column-start: 1;
+        grid-column-end: 5;
+        overflow-y: scroll;
+    }
+    
+    aside::after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 75vw;
+        width: 25vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.6);
+        display: none;
+    }
+    
+    .profile-feed {
+        display: none;
+    }
+    
+    .post {
+        height: 0px;
+    }
+    
+    .post input {
+        display: none;
+    }
+    
+    .post button {
+        font-size: 1.5em;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
 }
