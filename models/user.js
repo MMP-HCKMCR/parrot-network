@@ -15,6 +15,9 @@ var schema = new MonSchema({
     password: {
         type: String, required: true, bcrypt: true
     },
+    avatar: {
+        type: String, required: true
+    },
     is_private: {
         type: Boolean, default: true
     },

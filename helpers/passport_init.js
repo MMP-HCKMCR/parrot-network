@@ -46,6 +46,7 @@ module.exports = function(passport) {
         var email = req.body.email;
         var confirmPassword = req.body.confirmPassword
         var fullname = req.body.fullname;
+        var avatar = req.body.image
 
         if (!username || validator.isEmpty(username)) {
             console.log('[SIGNUP] invalid username');
@@ -60,6 +61,11 @@ module.exports = function(passport) {
         if (!fullname || validator.isEmpty(fullname)) {
             console.log('[SIGNUP] invalid fullname');
             return done(null, false, { message: 'Invalid fullname' });
+        }
+
+        if (!avatar || validator.isEmpty(avatar)) {
+            console.log('[SIGNUP] invalid avatar');
+            return done(null, false, { message: 'Invalid avatar' });
         }
 
         if (password != confirmPassword) {
@@ -82,6 +88,7 @@ module.exports = function(passport) {
                 username: username,
                 email: email,
                 fullname: fullname,
+                avatar: avatar,
                 password: password,
                 is_private: false
             });
