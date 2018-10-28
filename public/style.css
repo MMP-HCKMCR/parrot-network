@@ -364,7 +364,7 @@ h1#profile-name + div {
     }
     #grid {
         grid-template-columns: 15px calc(100vw - 80px) 10px;
-        grid-template-rows: 10vh 200px calc(90vw - 200px);
+        grid-template-rows: 10vh 200px calc(200px- 90vw);
         grid-gap: 0px;
     }
     #icon img {
