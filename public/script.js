@@ -16,21 +16,22 @@ $(document).ready(() => {
                 return;
             }
 
-            console.log(u);
-
             var username = getUserFromQuery();
 
             if (username && username != u.username) {
                 $('div.post').hide();
             }
 
-            loadForUser((username || u.username));
+            getUserInfo((username || u.username), (e, u) => {
+                loadForUser(u);
+            });
         });
     }
 })
 
-function loadForUser(username) {
-    getPosts('/api/posts/' + username);
+function loadForUser(user) {
+    $('img#profile-pic').attr('src', 'img/avatar/' + (user.avatar || 'coolparrot') + '.png');
+    getPosts('/api/posts/' + user.username);
 }
 
 function getUserFromQuery() {
@@ -40,6 +41,21 @@ function getUserFromQuery() {
 function getCurrentUser(cb) {
     $.ajax({
         url: "/api/user",
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+            cb(null, data.user);
+        },
+        error: function(err) {
+            console.log('[GETCURUSER] Failed: ' + error);
+            cb(err, null);
+        }
+    });
+}
+
+function getUserInfo(username, cb) {
+    $.ajax({
+        url: "/api/users/" + username,
         method: "GET",
         dataType: "json",
         success: function(data) {
