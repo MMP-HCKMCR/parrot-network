@@ -23,11 +23,14 @@ nav {
     width: 460px;
 }
 
-#icon, nav {
+#icon,
+nav {
     display: inline-block;
 }
 
-.valign, #icon, nav {
+.valign,
+#icon,
+nav {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -60,8 +63,11 @@ header {
     grid-row-end: 3;
 }
 
+
 /* Remove left column on feed page */
-.profile-feed, .profile-feed + aside {
+
+.profile-feed,
+.profile-feed + aside {
     display: none;
 }
 
@@ -74,7 +80,9 @@ header {
     height: 200px;
 }
 
-aside, main, #profile {
+aside,
+main,
+#profile {
     background-color: white;
     text-align: left;
 }
@@ -121,6 +129,7 @@ aside li {
     list-style-type: none;
 }
 
+
 /* -------------- LOGIN ------------------ */
 
 body > div {
@@ -143,12 +152,13 @@ input {
     padding: 10px;
     padding-top: 20px;
     width: 300px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     border: 0px;
     border-bottom: 2px #6ed3cf solid;
 }
 
-input:focus, button:focus {
+input:focus,
+button:focus {
     outline: none;
 }
 
@@ -187,13 +197,15 @@ button:hover {
     transition: 500ms;
 }
 
+
 /* ----------- INPUT FEED ------------- */
 
 .post {
     vertical-align: middle;
 }
 
-.post input, .post button {
+.post input,
+.post button {
     display: inline-block;
     margin: 5px;
 }
@@ -206,11 +218,13 @@ button:hover {
     font-size: 1.7em;
     border-radius: 50%;
     width: 45px;
-    height:45px;
+    height: 45px;
     padding: 5px;
 }
 
+
 /* Y U NO WORK */
+
 .post-header {
     vertical-align: middle;
 }
@@ -223,7 +237,8 @@ button:hover {
     width: 50px;
 }
 
-.post-block img, .post-header {
+.post-block img,
+.post-header {
     margin: 10px;
 }
 
@@ -231,11 +246,15 @@ button:hover {
     margin-left: 0px;
 }
 
-.post-block img, .post-content, .post-content p {
+.post-block img,
+.post-content,
+.post-content p {
     display: inline-block;
 }
 
-.post-username, .dot, .post-time {
+.post-username,
+.dot,
+.post-time {
     color: #57585d;
     font-size: 0.9em;
 }
@@ -252,6 +271,47 @@ button:hover {
     padding: 0;
 }
 
+
+/*  ----------- REGISTER ICONS --------- */
+
+.icon-selctor {
+    margin: 0 auto;
+    width: 300px;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+input[type=radio] + label img {
+    width: 39px;
+    position: relative;
+    left: -4px;
+    top: -4.5px;
+}
+
+input[type=radio] + label {
+/*    background: #999;*/
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    padding: 0px;
+    border: 2px rgba(0,0,0,0) solid;
+    transition: 200ms;
+}
+
+input[type=radio]:hover + label {
+    border: 2px #6ed3cf solid;
+    transform: scale(1.05);
+    transition: 200ms;
+}
+
+input[type=radio]:checked + label {
+    border: 2px #6ed3cf solid;
+    filter: brightness(0.6);
+}
+
+
 /* --------- MEDIA QURIES ------------ */
 
 @media only screen and (max-width: 700px) {
@@ -267,41 +327,33 @@ button:hover {
         grid-template-rows: 10vh 90vh;
         grid-gap: 0px;
     }
-    
     #icon img {
         display: none;
     }
-    
     #profile {
         text-align: center;
     }
-    
     header {
         position: fixed;
         height: 70px;
     }
-    
     nav {
         width: 100vw;
         text-align: center;
         top: 13px;
     }
-    
     nav ul {
         text-align: center;
     }
-    
     nav li {
         padding: 20px 14px;
     }
-    
     aside {
         position: absolute;
         width: 75vw;
         height: 100vh;
         display: none;
     }
-    
     /* Need to show */
     aside::before {
         content: '';
@@ -312,14 +364,12 @@ button:hover {
         top: 0px;
         left 0px;
     }
-    
     main {
         grid-row-start: 2;
         grid-row-end: 4;
         grid-column-start: 1;
         grid-column-end: 5;
     }
-    
     aside::after {
         content: '';
         position: absolute;
@@ -327,14 +377,12 @@ button:hover {
         left: 75vw;
         width: 25vw;
         height: 100vh;
-        background-color: rgba(0,0,0,0.6);
+        background-color: rgba(0, 0, 0, 0.6);
         display: none;
     }
-    
     .profile-feed {
         display: none;
     }
-    
     .post {
         background-color: white;
         position: fixed;
