@@ -251,6 +251,10 @@ button:hover {
 /* --------- MEDIA QURIES ------------ */
 
 @media only screen and (max-width: 700px) {
+    body {
+        background-color: white;
+        overflow-y: scroll;
+    }
     #grid {
         grid-template-columns: 15px calc(100vw - 80px) 10px;
         grid-template-rows: 10vh 90vh;
@@ -307,7 +311,6 @@ button:hover {
         grid-row-end: 4;
         grid-column-start: 1;
         grid-column-end: 5;
-        overflow-y: scroll;
     }
     
     aside::after {
@@ -326,18 +329,11 @@ button:hover {
     }
     
     .post {
-        height: 0px;
-    }
-    
-    .post input {
-        display: none;
-    }
-    
-    .post button {
+        background-color: white;
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
+        padding-top: 6px;
+        width: 95vw;
+        height: 70px;
+        bottom: -10px;
     }
 }
