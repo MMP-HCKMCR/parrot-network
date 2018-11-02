@@ -76,6 +76,11 @@ module.exports = function() {
                 return;
             }
 
+            if (!u) {
+                res.json({ error: true, message: 'User does not exist' });
+                return;
+            }
+
             PostRepo.findByUserId(u._id, (e, p) => {
                 if (e) {
                     console.log(e);
@@ -118,6 +123,11 @@ module.exports = function() {
                 return;
             }
 
+            if (!u) {
+                res.json({ error: true, message: 'User does not exist' });
+                return;
+            }
+
             res.json({ error: false, user: u });
         });
     })
@@ -157,16 +167,17 @@ module.exports = function() {
                 return;
             }
 
+            if (!u) {
+                res.json({ error: true, message: 'User does not exist' });
+                return;
+            }
+
             FollowRepo.findByUserAndFolloweeId(req.user._id, u._id, (e, f) => {
                 if (e) {
                     console.log(e);
                     res.json({ error: true, message: e });
                     return;
                 }
-
-                //var r = _.find(f, function(o) {
-                //    return (o.username == req.params.username);
-                //});
 
                 res.json({ error: false, following: (f != null && f != undefined) });
             })

@@ -18,11 +18,17 @@ $(document).ready(() => {
 
             var username = getUserFromQuery();
 
+            // show the follow or unfollow button?
             if (username && username != u.username) {
                 $('div.post').hide();
 
-                isUserFollowing(username, (e, f) => {
-                    if (f) {
+                isUserFollowing(username, (e, d) => {
+                    if (e) {
+                        showError(d.message);
+                        return;
+                    }
+
+                    if (d.following) {
                         $('button#follow').hide();
                         $('button#unfollow').show();
                     }
@@ -35,8 +41,14 @@ $(document).ready(() => {
                 });
             }
 
-            getUserInfo((username || u.username), (e, u) => {
-                loadForUser(u);
+            // load user posts
+            getUserInfo((username || u.username), (e, d) => {
+                if (e) {
+                    showError(d.message);
+                    return;
+                }
+
+                loadForUser(d.user);
             });
         });
     }
@@ -78,6 +90,12 @@ function callFollowUnfollow(action, cb) {
     });
 }
 
+function showError(msg) {
+    $('.page-content').hide();
+    $('#error-message').html(msg);
+    $('#error-content').show();
+}
+
 function loadForUser(user) {
     $('img#profile-pic').attr('src', 'img/avatar/' + (user.avatar || 'coolparrot') + '.png');
     $('h1#profile-name').html(user.username);
@@ -109,7 +127,7 @@ function getUserInfo(username, cb) {
         method: "GET",
         dataType: "json",
         success: function(data) {
-            cb(null, data.user);
+            cb(data.error, data);
         },
         error: function(err) {
             console.log('[GETUSER] Failed: ' + error);
@@ -125,7 +143,7 @@ function isUserFollowing(username, cb) {
         dataType: "json",
         success: function(data) {
             console.log(data);
-            cb(null, data.following);
+            cb(data.error, data);
         },
         error: function(err) {
             console.log('[GETUSER] Failed: ' + error);
