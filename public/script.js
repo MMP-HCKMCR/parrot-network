@@ -1,15 +1,26 @@
 $(document).ready(() => {
-    $('div.post form button[name=add-post]').click(function(e) {
-        sendPost($('div.post form input[name=message]')[0].value);
-        e.preventDefault();
-    });
+    var path = getCurrentPath();
 
-    if (window.location.pathname == '/') {
+    if (path == '/' || path.includes("/user")) {
+        $('div.post form button[name=add-post]').click(function(e) {
+            sendPost($('div.post form input[name=message]')[0].value);
+            e.preventDefault();
+        });
+    }
+
+    if (path == '/') {
         getPosts();
         setInterval(getPosts, 10000);
     }
 
-    if (window.location.pathname.includes("/user")) {
+    if (path.includes("/search")) {
+        $('div.post form button[name=find-users]').click(function(e) {
+            getUsers($('div.post form input[name=query]')[0].value);
+            e.preventDefault();
+        });
+    }
+
+    if (path.includes("/user")) {
         getCurrentUser((e, u) => {
             if (e) { 
                 console.log(e);
@@ -53,6 +64,10 @@ $(document).ready(() => {
         });
     }
 })
+
+function getCurrentPath() {
+    return window.location.pathname;
+}
 
 function bindFollowingEvents() {
     $('button#follow').click(function(e) {
@@ -115,7 +130,7 @@ function getCurrentUser(cb) {
             cb(null, data.user);
         },
         error: function(err) {
-            console.log('[GETCURUSER] Failed: ' + error);
+            console.log('[GETCURUSER] Failed: ' + err);
             cb(err, null);
         }
     });
@@ -130,7 +145,7 @@ function getUserInfo(username, cb) {
             cb(data.error, data);
         },
         error: function(err) {
-            console.log('[GETUSER] Failed: ' + error);
+            console.log('[GETUSER] Failed: ' + err);
             cb(err, null);
         }
     });
@@ -146,7 +161,7 @@ function isUserFollowing(username, cb) {
             cb(data.error, data);
         },
         error: function(err) {
-            console.log('[GETUSER] Failed: ' + error);
+            console.log('[GETUSER] Failed: ' + err);
             cb(err, null);
         }
     });
@@ -170,7 +185,7 @@ function sendPost(msg) {
             }
         },
         error: function(err) {
-            console.log('[SEND] Failed: ' + error);
+            console.log('[SEND] Failed: ' + err);
         }
     });
 }
@@ -179,30 +194,51 @@ function clearPost() {
     $('div.post form input[name=message]')[0].value = '';
 }
 
+function getUsers(query) {
+    $.ajax({
+        url: "/api/users/find?query=" + query,
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+            if (data.error) {
+                console.log('[FIND] Failed: ' + data.message);
+                return;
+            }
+
+            clearPosts();
+
+            data.users.forEach((v) => {
+                addUserToFeed(v);
+            });
+        },
+        error: function(err) {
+            console.log('[FIND] Failed: ' + err);
+        }
+    });
+}
+
 function getPosts(url) {
     url = (url || '/api/posts');
 
     var req = $.ajax({
         url: url,
         method: "GET",
-        dataType: "json"
-    });
+        dataType: "json",
+        success: function(data) {
+            if (data.error) {
+                console.log('[LOAD] Failed');
+                return;
+            }
 
-    req.done((data) => {
-        if (data.error) {
-            console.log('[LOAD] Failed');
-            return;
+            clearPosts();
+
+            data.posts.forEach((v) => {
+                addPostToFeed(v);
+            });
+        },
+        error: function(err) {
+            console.log('[LOAD] Failed: ' + err);
         }
-
-        clearPosts();
-
-        data.posts.forEach((v) => {
-            addPostToFeed(v);
-        });
-    });
-
-    req.fail((jq, status) => {
-        console.log('[LOAD] Failed: ' + status);
     });
 }
 
@@ -211,14 +247,7 @@ function clearPosts() {
 }
 
 function addPostToFeed(post) {
-    var time = (moment().utc()).diff((moment(post.created_at)), 'minutes');
-    if (time >= 60) {
-        time = (moment().utc()).diff((moment(post.created_at)), 'hours');
-        time = (time + 'h');
-    }
-    else {
-        time = (time + 'm');
-    }
+    var time = mapDateToTimestamp(post.created_at);
 
     $('div.all-posts').append('' +
         '<div class="post-block">' +
@@ -228,7 +257,7 @@ function addPostToFeed(post) {
                         '<p class="post-name"></p>' +
                         '<p class="post-username"><a href="/user?u=' + post.user.username + '">' + post.user.username + '</a></p>' +
                         '<p class="dot"> &#149; </p>' +
-                        '<p class="post-time">' + time + '</p>' +
+                        '<p class="post-time" alt="' + post.created_at + '">' + time + '</p>' +
                     '</div>' +
                     '<div class="post-gifs">' +
                         mapMessageToParrots(post.message) +
@@ -236,6 +265,42 @@ function addPostToFeed(post) {
                 '</div>' +
             '</div>' +
     '');
+}
+
+function addUserToFeed(user) {
+    $('div.all-posts').append('' +
+        '<div class="post-block">' +
+            '<img src="img/avatar/' + (user.avatar || 'coolparrot') + '.png">' +
+            '<div class="post-content">' +
+                    '<div class="post-header">' +
+                        '<p class="post-name"></p>' +
+                        '<p class="post-username"><a href="/user?u=' + user.username + '">' + user.username + '</a></p>' +
+                    '</div>' +
+                    '<div class="post-gifs">' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+    '');
+}
+
+function mapDateToTimestamp(date) {
+    var time = (moment().utc()).diff((moment(date)), 'minutes');
+    if (time < 60) {
+        return (time + 'm');
+    }
+
+    time = (moment().utc()).diff((moment(date)), 'hours');
+    if (time < 24) {
+        return (time + 'h');
+    }
+
+    time = (moment().utc()).diff((moment(date)), 'days');
+    if (time < 365) {
+        return (time + 'd');
+    }
+
+    time = (moment().utc()).diff((moment(date)), 'years');
+    return (time + 'y');
 }
 
 function mapMessageToParrots(msg) {

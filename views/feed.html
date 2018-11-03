@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Parrot Network</title>
+    <title>Home - Parrot Network</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <link rel="manifest" href="/manifest.json">
@@ -20,6 +20,7 @@
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
                     <li><a href="/user">Profile</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
@@ -34,7 +35,7 @@
         <main class="main-feed">
             <div class="post">
                 <form method="POST" action="/api/posts">
-                    <input type="text" name="message" placeholder="New Post" maxlength="140" required>
+                    <input type="text" name="message" placeholder="What's on your mind?" maxlength="140" required>
                     <button name="add-post">+</button>
                 </form>
             </div>

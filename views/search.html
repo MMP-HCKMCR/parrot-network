@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>User - Parrot Network</title>
+    <title>Search - Parrot Network</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <link rel="manifest" href="/manifest.json">
@@ -26,38 +26,16 @@
                 </ul>
             </nav>
         </header>
-
-        <div id='error-content' style="display:none">
-            <h2 id='error-message'></h3>
-        </div>
-
-        <div id="profile" class="page-content">
-            <img id="profile-pic" src="">
-        </div>
-        <!--<aside>
-            <ul>
-                <li>Add Friend</li>
-                <li>Option 2</li>
-                <li>Option 3</li>
-                <li>Option 4</li>
-            </ul>
-        </aside>-->
-        <main class="page-content">
-            <h1 id="profile-name"></h1>
-            <div id="follow-buttons">
-                <button id="follow" style="display:none">Follow</button>
-                <button id="unfollow" style="display:none" class="orange">Unfollow</button>
-            </div>
+        <main class="main-feed">
             <div class="post">
                 <form method="POST" action="/api/posts">
-                    <input type="text" name="message" placeholder="What's on your mind?" maxlength="140" required>
-                    <button name="add-post">+</button>
+                    <input type="text" name="query" placeholder="Enter a username" maxlength="12" minlength="2" required>
+                    <button name="find-users">?</button>
                 </form>
             </div>
-            <div class="all-posts small-posts">
+            <div class="all-posts">
             </div>
         </main>
-
     </div>
 </body>
 

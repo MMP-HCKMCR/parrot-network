@@ -115,6 +115,23 @@ module.exports = function() {
     })
 
     // user info
+    router.get('/users/find', isAuthenticated, function(req, res) {
+        if (!req.query.query) {
+            res.json({ error: false, users: [] });
+            return;
+        }
+
+        UserRepo.findAllByUsername(req.query.query, (e, u) => {
+            if (e) {
+                console.log(e);
+                res.json({ error: true, message: e });
+                return;
+            }
+
+            res.json({ error: false, users: (u || []) });
+        });
+    })
+
     router.get('/users/:username', isAuthenticated, function(req, res) {
         UserRepo.findByUsername(req.params.username, (e, u) => {
             if (e) {
