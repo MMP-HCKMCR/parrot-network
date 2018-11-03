@@ -15,7 +15,7 @@ header img {
 }
 
 #icon {
-    width: 200px;
+    width: 480px;
     text-align: left;
 }
 
@@ -44,8 +44,8 @@ body * {
 #grid {
     /* GRID */
     display: grid;
-    grid-template-columns: calc(50vw - 350px) 200px 460px calc(50vw - 350px);
-    grid-template-rows: 10vh 200px calc(90vh - 250px);
+    grid-template-columns: calc(45vw - 400px) 250px 680px calc(45vw - 400px);
+    grid-template-rows: 10vh 250px calc(90vh - 250px);
     grid-gap: 20px;
 }
 
@@ -54,6 +54,13 @@ header {
     background-color: #57585d;
     grid-column-start: 1;
     grid-column-end: 5;
+}
+
+#error-content {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
 #profile {
@@ -75,8 +82,8 @@ header {
 }
 
 #profile img {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
 }
 
 #profile div {
@@ -209,6 +216,11 @@ button {
     border: 0px;
     border-radius: 6%;
     transition: 500ms;
+    cursor: pointer;
+}
+
+div#follow-buttons {
+    float: right;
 }
 
 button.blank {
@@ -293,7 +305,11 @@ button:hover {
 .post-gifs {
     display: block;
     margin-bottom: 20px;
-    max-width: 350px;
+    max-width: 810px;
+}
+
+.small-posts .post-gifs {
+    max-width: 575px;
 }
 
 .post-gifs img {
@@ -345,8 +361,9 @@ input[type=radio]:checked + label {
 
 h1#profile-name + div {
     display: inline-block;
-    margin-top: -58px;
+    margin-top: -55px;
     margin-left: 160px;
+    margin-right: -14px;
 }
 
 /* --------- MEDIA QURIES ------------ */

@@ -25,7 +25,12 @@
                 </ul>
             </nav>
         </header>
-        <div id="profile">
+
+        <div id='error-content' style="display:none">
+            <h2 id='error-message'></h3>
+        </div>
+
+        <div id="profile" class="page-content">
             <img id="profile-pic" src="">
         </div>
         <!--<aside>
@@ -36,9 +41,9 @@
                 <li>Option 4</li>
             </ul>
         </aside>-->
-        <main>
+        <main class="page-content">
             <h1 id="profile-name"></h1>
-            <div>
+            <div id="follow-buttons">
                 <button id="follow" style="display:none">Follow</button>
                 <button id="unfollow" style="display:none" class="orange">Unfollow</button>
             </div>
@@ -48,9 +53,10 @@
                     <button name="add-post">+</button>
                 </form>
             </div>
-            <div class="all-posts">
+            <div class="all-posts small-posts">
             </div>
         </main>
+
     </div>
 </body>
 
