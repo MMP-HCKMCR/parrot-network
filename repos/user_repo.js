@@ -18,6 +18,15 @@ UserRepo.findByUsername = function(username, cb) {
     User.findOne({ 'username': regex }, (e, u) => cb(e, u));
 }
 
+UserRepo.findAllByUsername = function(query, cb) {
+    var regex = new RegExp(['^.*?', query, '.*?$'].join(''), 'i');
+
+    User.find({ 'username': regex })
+        .sort({ 'username': -1 })
+        .limit(30)
+        .exec((e, u) => cb(e, u));
+}
+
 UserRepo.findByEmail = function(email, cb) {
     var regex = new RegExp(['^', email, '$'].join(''), 'i');
     User.findOne({ 'email': regex }, (e, u) => cb(e, u));
